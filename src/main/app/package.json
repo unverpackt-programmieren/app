@@ -5,7 +5,9 @@
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preview": "npm run dist && cordova run browser",
+    "dist": "npm run uncompressed",
+    "uncompressed": "browserify --standalone unverpackt-programmieren www/js/unverpackt.js -o www/dist/unverpackt.js"
   },
   "keywords": [
     "ecosystem:cordova"
@@ -13,12 +15,26 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "devDependencies": {
+    "browserify": "^17.0.0",
     "cordova-android": "^10.1.2",
+    "cordova-browser": "^6.0.0",
+    "cordova-plugin-file": "^7.0.0",
+    "cordova-sqlite-storage": "^6.0.0",
     "lodash": "^4.17.21"
   },
   "cordova": {
     "platforms": [
-      "android"
-    ]
+      "android",
+      "browser"
+    ],
+    "plugins": {
+      "cordova-plugin-file": {
+        "ANDROIDX_WEBKIT_VERSION": "1.4.0"
+      },
+      "cordova-sqlite-storage": {}
+    }
+  },
+  "dependencies": {
+    "superagent": "^7.1.2"
   }
 }

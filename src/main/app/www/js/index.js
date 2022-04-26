@@ -22,8 +22,14 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
+    const db = window.sqlitePlugin.openDatabase({
+        name: 'my.db',
+        location: 'default',
+        androidDatabaseProvider: 'system'
+    });
+    const app = new AppFrame();
+    app.init(db);
+    $('.app').appendChild(app);
     // Cordova is now initialized. Have fun!
-
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-    document.getElementById('deviceready').classList.add('ready');
 }
