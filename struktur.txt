@@ -1,0 +1,40 @@
+
+Händler-Ansicht
+- Produkte einstellen
+	- Kategorie und Titel (combobox)
+	- Bilder hochladen
+	- Preis
+	- Menge (optional)
+	- Beschreibung
+	- Reservierbar
+- Kontaktinformationen
+	- Adresse
+	- Telefon
+	- Mail (optional)
+	- Name
+	- Öffnungszeiten (optional)
+	- Logo (optional)
+	- Homepage (optional)
+	- Kategorie (optional / combobox)
+	- Beschreibung (optional)
+	- Reservierbar ja/nein
+	- Chat ja/nein
+Kunden-Ansicht
+- Splash Screen ja/nein
+
+- Suche nach Kategorien, Titel, Händler
+	- Ergebnisse nach Distanz gruppieren
+
+- Produktseite
+	- Telefon
+	- Chat wird immer beim Händler dargestellt(optional)
+	- Reservieren (Datum, Menge, Uhrzeit)
+		- Händler kriegt Nachricht und kann Termin bestätigen
+		- Termin bleibt sichtbar als "offene Anfrage" bis Händler bestätigt
+
+- Favoritenseite bleibt
+
+- Einstellungen
+	- Dark mode
+	- Google connecten
+	- Datensparen (keine Bilder)
