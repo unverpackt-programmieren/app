@@ -3,6 +3,7 @@ class AppFrame extends HTMLElement {
     connectedCallback(){
         //this.innerHTML='HEY';
         alert("Ehm... Hallo");
+        alert("Test MSG 2");
     }
     
   }
