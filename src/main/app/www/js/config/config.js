@@ -1,10 +1,11 @@
 const i18n = {
     de: require("./i18n/de"),
-    en: require("./i18n/en")
+    en: require("./i18n/en"),
+    sk: require("./i18n/sk")
 }
 module.exports = {
     i18n: i18n,
-    language: 'en',
+    language: 'sk',
     db:{
         name: 'my.db',
         location: 'default',

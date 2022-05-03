@@ -11,6 +11,7 @@ class BottomBar extends HTMLElement {
         favouritesButton.init(config.i18n[language].bottom.favourites, config.pages.Favourites);
         const settingsButton = new NavigationButton();
         settingsButton.init(config.i18n[language].bottom.settings, config.pages.Settings);
+        
         const content = dom.div([
             searchButton, favouritesButton, settingsButton
         ]).create();
