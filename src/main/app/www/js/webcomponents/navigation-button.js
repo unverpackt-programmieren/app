@@ -1,4 +1,3 @@
-const config = require("./../config/config");
 const dom = require("./../utils/dom");
 
 class NavigationButton extends HTMLElement {

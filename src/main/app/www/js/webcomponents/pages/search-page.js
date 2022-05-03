@@ -1,6 +1,13 @@
+const dom = require("./../../utils/dom");
+const config = require("./../../config/config");
+
 class SearchPage extends HTMLElement {
     connectedCallback() {
-        this.innerHTML = 'Ich bin die Suchseite';
+        const query = dom.input().type('text').create();
+        this.appendChild(query);
+        query.addEventListener('keyup', () => {
+            console.log(query.value);
+        })
     }
 }
 
