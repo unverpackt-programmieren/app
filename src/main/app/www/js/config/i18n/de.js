@@ -3,6 +3,7 @@ module.exports = {
     bottom: {
         search: 'Suche',
         favourites: 'Favoriten',
-        settings: 'Einstellungen'
+        settings: 'Einstellungen',
+        impressum: 'Impressum'
     }
 }

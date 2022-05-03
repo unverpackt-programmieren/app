@@ -6,7 +6,8 @@ module.exports = (sqlQuery, values) => {
             tx.executeSql(sqlQuery, values, function (tx, rs) {
                 const value = rs.rows.item(0);
                 resolve({
-                    rs:rs
+                    rs:rs,
+                    value: rs.rows.item(0)
                 });
             }, function (tx, error) {
                 reject(error);

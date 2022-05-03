@@ -7,7 +7,7 @@ const sql = require("./../utils/webSQL");
 class AppFrame extends HTMLElement {
     async prepareDB() {
         const createProfile = await sql("CREATE TABLE IF NOT EXISTS Profile (lastQuery)");
-        const existsProfile = await sql("SELECT count(lastQuery) FROM Profile");
+        await sql("INSERT INTO Profile(lastQuery) values(?)",['Huhu diese DB ist alt!']);
         return true;
     }
 

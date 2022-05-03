@@ -37,6 +37,10 @@ body {
     width:100%;
 }
 
+.schnubbel {
+    color:red;
+}
+
 /* Portrait layout (default) */
 .app {
     position:absolute;             /* position in the center of the screen */
