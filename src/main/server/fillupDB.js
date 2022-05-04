@@ -35,8 +35,23 @@ const createCustomer = async hasOptionalFields => {
 const createProduct = async (customerId, createCategory) => {
     let categoryId;
     if (createCategory) {
+        let categoryExists = true;
+        let categoryTitle = faker.commerce.product();
+        let counter=0;
+        while (categoryExists) {
+            const result = await storage.Kategorie.findOne({where: {titel: categoryTitle}})
+            if (result === null) {
+                categoryExists = false;
+            } else {
+                categoryTitle = faker.commerce.product();
+                counter++;
+            }
+            if(counter==10){
+                return createProduct(customerId,false);
+            }
+        }
         const category = await storage.Kategorie.create({
-            titel: faker.commerce.product()
+            titel: categoryTitle
         })
         categoryId = category.id;
     } else {
