@@ -10,8 +10,7 @@ startServer = async () => {
     app.get("/apt", (req, res) => {
         res.sendFile(path.resolve(appDir, 'platforms/android/app/build/outputs/apk/debug/app-debug.apk'));
     })
-    await storage.db.sync({force: true});
-
+    await storage.db.sync();
     app.listen(port, () => {
         console.log(`unverpackt-programmieren listening on port ${port}`)
     })

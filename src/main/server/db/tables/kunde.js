@@ -1,6 +1,14 @@
 const {DataTypes} = require("sequelize");
 module.exports = (sequelize) => {
     return sequelize.define('Customer', {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        ansprechpartner: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         adresse: {
             type: DataTypes.STRING,
             allowNull: false
