@@ -13,19 +13,21 @@ class AppFrame extends HTMLElement {
 
     connectedCallback() {
         this.prepareDB().then(() => {
-            this.pageContent = dom.div(new config.pages.Search()).class('content').create();
-            const content = dom.div([
-                new TopBar(),
-                this.pageContent,
-                new BottomBar()
-            ]).create();
-            this.appendChild(content);
+            this.show(config.pages.Search, TopBar, BottomBar);
         })
     }
 
-    show(Component) {
+    show(newPageComponent, newTopBar, newBottomBar) {
         this.pageContent.innerHTML = '';
-        this.pageContent.appendChild(new Component());
+        this.pageContent = dom.div(new newPageComponent()).class('content').create();
+        alert("pagecontent");
+        const content = dom.div([
+            new newTopBar(),
+            this.pageContent,
+            new newBottomBar()
+        ]).create();
+        alert("pack");
+        this.appendChild(content);
     }
 }
 

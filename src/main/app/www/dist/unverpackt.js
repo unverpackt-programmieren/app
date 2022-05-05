@@ -1,10 +1,12 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.unverpacktProgrammieren = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const i18n = {
-    de: require("./i18n/de")
+    de: require("./i18n/de"),
+    en: require("./i18n/en"),
+    sk: require("./i18n/sk")
 }
 module.exports = {
     i18n: i18n,
-    language: 'de',
+    language: 'sk',
     db:{
         name: 'my.db',
         location: 'default',
@@ -13,24 +15,46 @@ module.exports = {
     pages: {
         Search: require("./../webcomponents/pages/search-page"),
         Favourites: require("./../webcomponents/pages/favourites-page"),
-        Settings: require("./../webcomponents/pages/settings-page")
+        Settings: require("./../webcomponents/pages/settings-page"),
+        Impressum: require("./../webcomponents/pages/impressum-page")
     }
 }
-},{"./../webcomponents/pages/favourites-page":10,"./../webcomponents/pages/search-page":11,"./../webcomponents/pages/settings-page":12,"./i18n/de":2}],2:[function(require,module,exports){
+},{"./../webcomponents/pages/favourites-page":12,"./../webcomponents/pages/impressum-page":13,"./../webcomponents/pages/search-page":14,"./../webcomponents/pages/settings-page":15,"./i18n/de":2,"./i18n/en":3,"./i18n/sk":4}],2:[function(require,module,exports){
 module.exports = {
     name: 'unverpackt programmieren',
     bottom: {
         search: 'Suche',
         favourites: 'Favoriten',
-        settings: 'Einstellungen'
+        settings: 'Einstellungen',
+        impressum: 'Impressum'
     }
 }
 },{}],3:[function(require,module,exports){
+module.exports = {
+    name: 'unverpackt programmieren',
+    bottom: {
+        search: 'Search',
+        favourites: 'Favourites',
+        settings: 'Settings',
+        impressum: 'Fuck You'
+    }
+}
+},{}],4:[function(require,module,exports){
+module.exports = {
+    name: 'unverpackt programmieren',
+    bottom: {
+        search: 'Vyhľadať',
+        favourites: 'Obľúbené',
+        settings: 'Nastavenia',
+        impressum: 'Impresum'
+    }
+}
+},{}],5:[function(require,module,exports){
 (function (global){(function (){
 const queryDomElements = require("./utils/queryDOMElements");
 global.AppFrame = require("./webcomponents/app-frame");
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./utils/queryDOMElements":5,"./webcomponents/app-frame":7}],4:[function(require,module,exports){
+},{"./utils/queryDOMElements":7,"./webcomponents/app-frame":9}],6:[function(require,module,exports){
 const ProxyFactoryCommands = {
     create: (target, propKey) => {
         return () => {
@@ -120,7 +144,7 @@ const initHandler = {
 
 const factory = new Proxy({}, initHandler);
 module.exports = factory;
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 (function (global){(function (){
 const queryMultipleDOMNodes = (selector, node) => {
     const searchIn = !node ? document : node;
@@ -146,7 +170,7 @@ if (typeof module !== 'undefined') {
 }
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 const config = require("./../config/config");
 module.exports = (sqlQuery, values) => {
     return new Promise((resolve, reject) => {
@@ -155,7 +179,8 @@ module.exports = (sqlQuery, values) => {
             tx.executeSql(sqlQuery, values, function (tx, rs) {
                 const value = rs.rows.item(0);
                 resolve({
-                    rs:rs
+                    rs:rs,
+                    value: rs.rows.item(0)
                 });
             }, function (tx, error) {
                 reject(error);
@@ -163,7 +188,7 @@ module.exports = (sqlQuery, values) => {
         });
     })
 }
-},{"./../config/config":1}],7:[function(require,module,exports){
+},{"./../config/config":1}],9:[function(require,module,exports){
 const config = require("./../config/config");
 const TopBar = require("./top-bar");
 const BottomBar = require("./bottom-bar");
@@ -173,31 +198,33 @@ const sql = require("./../utils/webSQL");
 class AppFrame extends HTMLElement {
     async prepareDB() {
         const createProfile = await sql("CREATE TABLE IF NOT EXISTS Profile (lastQuery)");
-        const existsProfile = await sql("SELECT count(lastQuery) FROM Profile");
+        await sql("INSERT INTO Profile(lastQuery) values(?)",['Huhu diese DB ist alt!']);
         return true;
     }
 
     connectedCallback() {
         this.prepareDB().then(() => {
-            this.pageContent = dom.div(new config.pages.Search()).class('content').create();
-            const content = dom.div([
-                new TopBar(),
-                this.pageContent,
-                new BottomBar()
-            ]).create();
-            this.appendChild(content);
+            this.show(config.pages.Search, TopBar, BottomBar);
         })
     }
 
-    show(Component) {
+    show(newPageComponent, newTopBar, newBottomBar) {
         this.pageContent.innerHTML = '';
-        this.pageContent.appendChild(new Component());
+        this.pageContent = dom.div(new newPageComponent()).class('content').create();
+        alert("pagecontent");
+        const content = dom.div([
+            new newTopBar(),
+            this.pageContent,
+            new newBottomBar()
+        ]).create();
+        alert("pack");
+        this.appendChild(content);
     }
 }
 
 window.customElements.define('app-frame', AppFrame);
 module.exports = AppFrame;
-},{"./../config/config":1,"./../utils/dom":4,"./../utils/webSQL":6,"./bottom-bar":8,"./top-bar":13}],8:[function(require,module,exports){
+},{"./../config/config":1,"./../utils/dom":6,"./../utils/webSQL":8,"./bottom-bar":10,"./top-bar":16}],10:[function(require,module,exports){
 const config = require("./../config/config");
 const dom = require("./../utils/dom");
 const NavigationButton = require("./navigation-button");
@@ -211,6 +238,7 @@ class BottomBar extends HTMLElement {
         favouritesButton.init(config.i18n[language].bottom.favourites, config.pages.Favourites);
         const settingsButton = new NavigationButton();
         settingsButton.init(config.i18n[language].bottom.settings, config.pages.Settings);
+        
         const content = dom.div([
             searchButton, favouritesButton, settingsButton
         ]).create();
@@ -220,22 +248,25 @@ class BottomBar extends HTMLElement {
 
 window.customElements.define('bottom-bar', BottomBar);
 module.exports = BottomBar;
-},{"./../config/config":1,"./../utils/dom":4,"./navigation-button":9}],9:[function(require,module,exports){
+},{"./../config/config":1,"./../utils/dom":6,"./navigation-button":11}],11:[function(require,module,exports){
 const dom = require("./../utils/dom");
+
+const TopBar = require("./top-bar");
+const BottomBar = require("./bottom-bar");
 
 class NavigationButton extends HTMLElement {
     init(title, componentToLoad) {
         const button = dom.button(title).create();
         this.appendChild(button);
         this.addEventListener('click', () => {
-            $('app-frame').show(componentToLoad);
+            $('app-frame').show(componentToLoad, TopBar, BottomBar);
         })
     }
 }
 
 window.customElements.define('navigation-button', NavigationButton);
 module.exports = NavigationButton;
-},{"./../utils/dom":4}],10:[function(require,module,exports){
+},{"./../utils/dom":6,"./bottom-bar":10,"./top-bar":16}],12:[function(require,module,exports){
 class FavouritesPage extends HTMLElement {
     connectedCallback() {
         this.innerHTML = 'Ich bin die Favoriten';
@@ -244,7 +275,16 @@ class FavouritesPage extends HTMLElement {
 
 window.customElements.define('favourites-page', FavouritesPage);
 module.exports = FavouritesPage;
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
+class ImpressumPage extends HTMLElement {
+    connectedCallback() {
+        this.innerHTML = 'Ich bin der Impressum. Guten Tag';
+    }
+}
+
+window.customElements.define('impressum-page', ImpressumPage);
+module.exports = ImpressumPage;
+},{}],14:[function(require,module,exports){
 const dom = require("./../../utils/dom");
 const config = require("./../../config/config");
 
@@ -260,24 +300,35 @@ class SearchPage extends HTMLElement {
 
 window.customElements.define('search-page', SearchPage);
 module.exports = SearchPage;
-},{"./../../config/config":1,"./../../utils/dom":4}],12:[function(require,module,exports){
+},{"./../../config/config":1,"./../../utils/dom":6}],15:[function(require,module,exports){
+const { i18n } = require("./../../config/config");
+const config = require("./../../config/config");
+const dom = require("./../../utils/dom");
+
 class SettingsPage extends HTMLElement {
     connectedCallback() {
-        this.innerHTML = 'Ich bin die Einstellungsseite';
+        
+        this.innerHTML = "dummy";
     }
 }
 
 window.customElements.define('settings-page', SettingsPage);
 module.exports = SettingsPage;
-},{}],13:[function(require,module,exports){
+},{"./../../config/config":1,"./../../utils/dom":6}],16:[function(require,module,exports){
 const config = require("./../config/config");
 const dom = require("./../utils/dom");
+const NavigationButton = require("./navigation-button");
 
 class TopBar extends HTMLElement {
     connectedCallback() {
         const language = config.language;
+        const impressumButton = new NavigationButton();
+        impressumButton.init(config.i18n[language].bottom.impressum, config.pages.Impressum);
         const content = dom.div(
-            dom.h2(config.i18n[language].name).create()
+            [
+                dom.h2(config.i18n[language].name).create(),
+                impressumButton
+            ]
         ).create();
         this.appendChild(content);
     }
@@ -285,5 +336,5 @@ class TopBar extends HTMLElement {
 
 window.customElements.define('top-bar', TopBar);
 module.exports = TopBar;
-},{"./../config/config":1,"./../utils/dom":4}]},{},[3])(3)
+},{"./../config/config":1,"./../utils/dom":6,"./navigation-button":11}]},{},[5])(5)
 });
