@@ -1,4 +1,8 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.unverpacktProgrammieren = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const DefaultTop = require("./../webcomponents/top-bar");
+const DefaultBottom = require("./../webcomponents/bottom-bar");
+const SettingsTop = require("./../webcomponents/settings-topbar");
+
 const i18n = {
     de: require("./i18n/de"),
     en: require("./i18n/en"),
@@ -13,13 +17,29 @@ module.exports = {
         androidDatabaseProvider: 'system'
     },
     pages: {
-        Search: require("./../webcomponents/pages/search-page"),
-        Favourites: require("./../webcomponents/pages/favourites-page"),
-        Settings: require("./../webcomponents/pages/settings-page"),
-        Impressum: require("./../webcomponents/pages/impressum-page")
+        Search: {
+            content : require("./../webcomponents/pages/search-page"),
+            top: DefaultTop,
+            bottom: DefaultBottom
+        },
+        Favourites: {
+            content : require("./../webcomponents/pages/favourites-page"),
+            top: DefaultTop,
+            bottom: DefaultBottom
+        },
+        Settings: {
+            content : require("./../webcomponents/pages/settings-page"),
+            top: SettingsTop,
+            bottom: DefaultBottom
+        },
+        Impressum: {
+            content : require("./../webcomponents/pages/impressum-page"),
+            top: DefaultTop,
+            bottom: DefaultBottom
+        }
     }
 }
-},{"./../webcomponents/pages/favourites-page":12,"./../webcomponents/pages/impressum-page":13,"./../webcomponents/pages/search-page":14,"./../webcomponents/pages/settings-page":15,"./i18n/de":2,"./i18n/en":3,"./i18n/sk":4}],2:[function(require,module,exports){
+},{"./../webcomponents/bottom-bar":10,"./../webcomponents/pages/favourites-page":12,"./../webcomponents/pages/impressum-page":13,"./../webcomponents/pages/search-page":14,"./../webcomponents/pages/settings-page":15,"./../webcomponents/settings-topbar":16,"./../webcomponents/top-bar":17,"./i18n/de":2,"./i18n/en":3,"./i18n/sk":4}],2:[function(require,module,exports){
 module.exports = {
     name: 'unverpackt programmieren',
     bottom: {
@@ -189,9 +209,8 @@ module.exports = (sqlQuery, values) => {
     })
 }
 },{"./../config/config":1}],9:[function(require,module,exports){
+const { pages } = require("./../config/config");
 const config = require("./../config/config");
-const TopBar = require("./top-bar");
-const BottomBar = require("./bottom-bar");
 const dom = require("./../utils/dom");
 const sql = require("./../utils/webSQL");
 
@@ -204,33 +223,35 @@ class AppFrame extends HTMLElement {
 
     connectedCallback() {
         this.prepareDB().then(() => {
-            this.show(config.pages.Search, TopBar, BottomBar);
+            this.show(config.pages.Search);
         })
     }
 
-    show(newPageComponent, newTopBar, newBottomBar) {
-        this.pageContent.innerHTML = '';
-        this.pageContent = dom.div(new newPageComponent()).class('content').create();
-        alert("pagecontent");
+    show(Component) {
+        this.innerHTML = "";
+
+        this.pageContent = dom.div(new Component.content()).class('content').create();
         const content = dom.div([
-            new newTopBar(),
+            Component.top ? new Component.top() : null,
             this.pageContent,
-            new newBottomBar()
+            Component.bottom ? new Component.bottom() : null
         ]).create();
-        alert("pack");
+
         this.appendChild(content);
     }
 }
 
 window.customElements.define('app-frame', AppFrame);
 module.exports = AppFrame;
-},{"./../config/config":1,"./../utils/dom":6,"./../utils/webSQL":8,"./bottom-bar":10,"./top-bar":16}],10:[function(require,module,exports){
-const config = require("./../config/config");
+},{"./../config/config":1,"./../utils/dom":6,"./../utils/webSQL":8}],10:[function(require,module,exports){
+//const config = require("./../config/config");
 const dom = require("./../utils/dom");
 const NavigationButton = require("./navigation-button");
 
 class BottomBar extends HTMLElement {
     connectedCallback() {
+        const config = require("./../config/config");
+
         const language = config.language;
         const searchButton = new NavigationButton();
         searchButton.init(config.i18n[language].bottom.search, config.pages.Search);
@@ -251,22 +272,22 @@ module.exports = BottomBar;
 },{"./../config/config":1,"./../utils/dom":6,"./navigation-button":11}],11:[function(require,module,exports){
 const dom = require("./../utils/dom");
 
-const TopBar = require("./top-bar");
-const BottomBar = require("./bottom-bar");
+
 
 class NavigationButton extends HTMLElement {
     init(title, componentToLoad) {
+
         const button = dom.button(title).create();
         this.appendChild(button);
         this.addEventListener('click', () => {
-            $('app-frame').show(componentToLoad, TopBar, BottomBar);
+            $('app-frame').show(componentToLoad);
         })
     }
 }
 
 window.customElements.define('navigation-button', NavigationButton);
 module.exports = NavigationButton;
-},{"./../utils/dom":6,"./bottom-bar":10,"./top-bar":16}],12:[function(require,module,exports){
+},{"./../utils/dom":6}],12:[function(require,module,exports){
 class FavouritesPage extends HTMLElement {
     connectedCallback() {
         this.innerHTML = 'Ich bin die Favoriten';
@@ -315,12 +336,37 @@ class SettingsPage extends HTMLElement {
 window.customElements.define('settings-page', SettingsPage);
 module.exports = SettingsPage;
 },{"./../../config/config":1,"./../../utils/dom":6}],16:[function(require,module,exports){
-const config = require("./../config/config");
+const dom = require("./../utils/dom");
+const NavigationButton = require("./navigation-button");
+
+class SettingsTop extends HTMLElement {
+    connectedCallback() {
+        const config = require("./../config/config");
+
+        const language = config.language;
+        const backButton = new NavigationButton();
+        backButton.init("←", config.pages.Search);
+        const content = dom.div(
+            [
+                backButton,
+                dom.text(config.i18n[language].bottom.settings).create()
+            ]
+        ).create();
+        this.appendChild(content);
+    }
+}
+
+window.customElements.define('settings-top-bar', SettingsTop);
+module.exports = SettingsTop;
+},{"./../config/config":1,"./../utils/dom":6,"./navigation-button":11}],17:[function(require,module,exports){
+
 const dom = require("./../utils/dom");
 const NavigationButton = require("./navigation-button");
 
 class TopBar extends HTMLElement {
     connectedCallback() {
+        const config = require("./../config/config");
+
         const language = config.language;
         const impressumButton = new NavigationButton();
         impressumButton.init(config.i18n[language].bottom.impressum, config.pages.Impressum);

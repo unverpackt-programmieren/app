@@ -1,9 +1,11 @@
-const config = require("./../config/config");
+//const config = require("./../config/config");
 const dom = require("./../utils/dom");
 const NavigationButton = require("./navigation-button");
 
 class BottomBar extends HTMLElement {
     connectedCallback() {
+        const config = require("./../config/config");
+
         const language = config.language;
         const searchButton = new NavigationButton();
         searchButton.init(config.i18n[language].bottom.search, config.pages.Search);

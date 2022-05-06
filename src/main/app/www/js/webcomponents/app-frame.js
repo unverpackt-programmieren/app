@@ -1,6 +1,5 @@
+const { pages } = require("./../config/config");
 const config = require("./../config/config");
-const TopBar = require("./top-bar");
-const BottomBar = require("./bottom-bar");
 const dom = require("./../utils/dom");
 const sql = require("./../utils/webSQL");
 
@@ -13,20 +12,20 @@ class AppFrame extends HTMLElement {
 
     connectedCallback() {
         this.prepareDB().then(() => {
-            this.show(config.pages.Search, TopBar, BottomBar);
+            this.show(config.pages.Search);
         })
     }
 
-    show(newPageComponent, newTopBar, newBottomBar) {
-        this.pageContent.innerHTML = '';
-        this.pageContent = dom.div(new newPageComponent()).class('content').create();
-        alert("pagecontent");
+    show(Component) {
+        this.innerHTML = "";
+
+        this.pageContent = dom.div(new Component.content()).class('content').create();
         const content = dom.div([
-            new newTopBar(),
+            Component.top ? new Component.top() : null,
             this.pageContent,
-            new newBottomBar()
+            Component.bottom ? new Component.bottom() : null
         ]).create();
-        alert("pack");
+
         this.appendChild(content);
     }
 }
