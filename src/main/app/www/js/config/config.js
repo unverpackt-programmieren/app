@@ -9,7 +9,7 @@ const i18n = {
 }
 module.exports = {
     i18n: i18n,
-    language: 'sk',
+    language: 'en',
     db:{
         name: 'my.db',
         location: 'default',
