@@ -1,0 +1,6 @@
+src/main/server/node_modules
+src/main/app/node_modules
+src/main/app/www/dist
+.idea
+src/main/server/package-lock.json
+src/main/app/package-lock.json
