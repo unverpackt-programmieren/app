@@ -1,6 +1,11 @@
+const { i18n } = require("./../../config/config");
+const config = require("./../../config/config");
+const dom = require("./../../utils/dom");
+
 class SettingsPage extends HTMLElement {
     connectedCallback() {
-        this.innerHTML = 'Ich bin die Einstellungsseite';
+        
+        this.innerHTML = "dummy";
     }
 }
 

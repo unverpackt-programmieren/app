@@ -1,6 +1,11 @@
+const DefaultTop = require("./../webcomponents/top-bar");
+const DefaultBottom = require("./../webcomponents/bottom-bar");
+const SettingsTop = require("./../webcomponents/settings-topbar");
+
 const i18n = {
     de: require("./i18n/de"),
-    en: require("./i18n/en")
+    en: require("./i18n/en"),
+    sk: require("./i18n/sk")
 }
 module.exports = {
     i18n: i18n,
@@ -11,9 +16,25 @@ module.exports = {
         androidDatabaseProvider: 'system'
     },
     pages: {
-        Search: require("./../webcomponents/pages/search-page"),
-        Favourites: require("./../webcomponents/pages/favourites-page"),
-        Settings: require("./../webcomponents/pages/settings-page"),
-        Impressum: require("./../webcomponents/pages/impressum-page")
+        Search: {
+            content : require("./../webcomponents/pages/search-page"),
+            top: DefaultTop,
+            bottom: DefaultBottom
+        },
+        Favourites: {
+            content : require("./../webcomponents/pages/favourites-page"),
+            top: DefaultTop,
+            bottom: DefaultBottom
+        },
+        Settings: {
+            content : require("./../webcomponents/pages/settings-page"),
+            top: SettingsTop,
+            bottom: DefaultBottom
+        },
+        Impressum: {
+            content : require("./../webcomponents/pages/impressum-page"),
+            top: DefaultTop,
+            bottom: DefaultBottom
+        }
     }
 }
