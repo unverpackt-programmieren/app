@@ -1,9 +1,11 @@
-const config = require("./../config/config");
+
 const dom = require("./../utils/dom");
 const NavigationButton = require("./navigation-button");
 
 class TopBar extends HTMLElement {
     connectedCallback() {
+        const config = require("./../config/config");
+
         const language = config.language;
         const impressumButton = new NavigationButton();
         impressumButton.init(config.i18n[language].bottom.impressum, config.pages.Impressum);
