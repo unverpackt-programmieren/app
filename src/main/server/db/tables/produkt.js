@@ -11,6 +11,10 @@ module.exports = (sequelize) => {
         preis: {
             type: DataTypes.FLOAT,
             allowNull: false
+        },
+        reservierbar: {
+            type: DataTypes.BOOLEAN,
+            default: false
         }
     });
 }

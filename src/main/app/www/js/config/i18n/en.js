@@ -5,5 +5,8 @@ module.exports = {
         favourites: 'Favourites',
         settings: 'Settings',
         impressum: 'Fuck You'
+    },
+    search: {
+        placeholder: 'Enter Query here'
     }
 }

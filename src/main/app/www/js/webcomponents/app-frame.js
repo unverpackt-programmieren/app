@@ -18,7 +18,6 @@ class AppFrame extends HTMLElement {
 
     show(Component) {
         this.innerHTML = "";
-
         this.pageContent = dom.div(new Component.content()).class('content').create();
         const content = dom.div([
             Component.top ? new Component.top() : null,

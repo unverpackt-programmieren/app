@@ -36,10 +36,12 @@ module.exports = (sequelize) => {
             type: DataTypes.TEXT
         },
         reservierbar: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            default:false
         },
         chat: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            default:false
         }
     });
 }

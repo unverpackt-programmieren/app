@@ -37,7 +37,7 @@ const createProduct = async (customerId, createCategory) => {
     if (createCategory) {
         let categoryExists = true;
         let categoryTitle = faker.commerce.product();
-        let counter=0;
+        let counter = 0;
         while (categoryExists) {
             const result = await storage.Kategorie.findOne({where: {titel: categoryTitle}})
             if (result === null) {
@@ -46,8 +46,8 @@ const createProduct = async (customerId, createCategory) => {
                 categoryTitle = faker.commerce.product();
                 counter++;
             }
-            if(counter==10){
-                return createProduct(customerId,false);
+            if (counter == 10) {
+                return createProduct(customerId, false);
             }
         }
         const category = await storage.Kategorie.create({
@@ -62,6 +62,7 @@ const createProduct = async (customerId, createCategory) => {
         beschreibung: faker.company.catchPhrase(),
         logo: faker.image.avatar(),
         preis: faker.commerce.price(1, 20, 2),
+        reservierbar: between(0, 10) % 2 === 0,
         CustomerId: customerId,
         CategoryId: categoryId
     })

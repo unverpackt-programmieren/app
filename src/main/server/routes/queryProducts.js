@@ -5,13 +5,14 @@ module.exports = async (req, res) => {
     const matchingKategorien = await storage.Kategorie.findAll({
         where: {
             titel: {
-                [Op.like]: req.params.query
+                [Op.like]: req.params.query+'%'
             }
         },
         include: {
             model: storage.Produkt
         }
     });
+    console.log(matchingKategorien)
     res.send(matchingKategorien.map(category => {
         let result = category.Product.dataValues;
         result.titel = category.dataValues.titel;
