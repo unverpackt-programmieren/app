@@ -9,7 +9,8 @@ const i18n = {
 }
 module.exports = {
     i18n: i18n,
-    language: 'en',
+    language: 'en', //fallback language, for user language go to usersettings.js
+    user: require("./userconfig"),
     db:{
         name: 'my.db',
         location: 'default',
