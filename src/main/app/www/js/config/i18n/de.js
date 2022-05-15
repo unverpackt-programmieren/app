@@ -1,10 +1,12 @@
 module.exports = {
     name: 'unverpackt programmieren',
+    top: {
+        impressum: 'Impressum'
+    },
     bottom: {
         search: 'Suche',
         favourites: 'Favoriten',
-        settings: 'Einstellungen',
-        impressum: 'Impressum'
+        settings: 'Einstellungen'
     },
     search: {
         placeholder: 'Hier Suchen'

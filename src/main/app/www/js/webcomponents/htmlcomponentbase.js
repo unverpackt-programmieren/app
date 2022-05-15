@@ -1,13 +1,13 @@
 class HTMLComponentBase extends HTMLElement{
-    static get config(){
+    get config(){
         return require("./../config/config");
     }
 
-    static get dom(){
+    get dom(){
         return require("./../utils/dom");
     }
 
-    static get safe_i18n(){
+    get safe_i18n(){
         return (langpath) =>
         {
             const errormsg = "LANG ERROR";
@@ -16,28 +16,28 @@ class HTMLComponentBase extends HTMLElement{
             
             if(splitpath[0] == ".")
             {
-                splitpath[0] = HTMLComponentBase.config.user.language;
+                splitpath[0] = this.config.user.language;
             }
             else if(splitpath[0] == "..")
             {
                 //use fallback
-                splitpath[0] = HTMLComponentBase.config.language;
+                splitpath[0] = this.config.language;
             }
 
-            var prop = HTMLComponentBase.config.i18n[splitpath[0]];
+            var prop = this.config.i18n[splitpath[0]];
             if(typeof prop == "undefined")
             {
-                console.error("there is no language \"" + splitpath[0] + "\" -> using fallback (" + HTMLComponentBase.config.language + ")");
+                console.error("there is no language \"" + splitpath[0] + "\" -> using fallback (" + this.config.language + ")");
                 
-                if(typeof HTMLComponentBase.config.language == "undefined")
+                if(typeof this.config.language == "undefined")
                 {
                     console.error("failed using fallback language");
                     return errormsg;
                 }
                 else
                 {
-                    splitpath[0] = HTMLComponentBase.config.language;
-                    prop = HTMLComponentBase.config.i18n[splitpath[0]];
+                    splitpath[0] = this.config.language;
+                    prop = this.config.i18n[splitpath[0]];
                 }
             }
             
@@ -53,24 +53,24 @@ class HTMLComponentBase extends HTMLElement{
             prop = tryGet(prop, splitpath);
             if(typeof prop == "undefined")
             {
-                if(splitpath[0] != HTMLComponentBase.config.language)
+                if(splitpath[0] != this.config.language)
                 {
-                    console.error("there is no language property for \"" + pathstr + "\" in\"" + splitpath[0] + "\" -> trying fallback (" + HTMLComponentBase.config.language + ")");
+                    console.error("there is no language property for \"" + pathstr + "\" in\"" + splitpath[0] + "\" -> trying fallback (" + this.config.language + ")");
 
-                    splitpath[0] = HTMLComponentBase.config.language;
-                    prop = HTMLComponentBase.config.i18n[splitpath[0]];
+                    splitpath[0] = this.config.language;
+                    prop = this.config.i18n[splitpath[0]];
                     prop = tryGet(prop, splitpath);
 
                     if(typeof prop == "undefined")
                     {
                         prop = errormsg;
-                        console.error("failed using fallback language (" + HTMLComponentBase.config.language + ")");
+                        console.error("failed using fallback language (" + this.config.language + ")");
                     }
                 }
                 else
                 {
                     prop = errormsg;
-                    console.error("there is no language property for \"" + pathstr + "\" in language (" + HTMLComponentBase.config.language + "). No fallback!");
+                    console.error("there is no language property for \"" + pathstr + "\" in language (" + this.config.language + "). No fallback!");
                 }
             }
             

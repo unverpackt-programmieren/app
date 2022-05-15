@@ -1,11 +1,9 @@
-const dom = require("./../utils/dom");
+const HTMLComponentBase = require("./htmlcomponentbase");
 
-
-
-class NavigationButton extends HTMLElement {
+class NavigationButton extends HTMLComponentBase {
     init(title, componentToLoad) {
 
-        const button = dom.button(title).create();
+        const button = this.dom.button(title).create();
         this.appendChild(button);
         this.addEventListener('click', () => {
             $('app-frame').show(componentToLoad);

@@ -1,8 +1,8 @@
-const dom = require("./../../utils/dom");
+const HTMLComponentBase = require("./../htmlcomponentbase");
 const Tribute = require("tributejs");
 const superagent = require("superagent");
 
-class SearchPage extends HTMLElement {
+class SearchPage extends HTMLComponentBase {
 
     async createAutoComplete(queryField) {
         const rs= await superagent.get('http://localhost:3000/kategorien')
@@ -14,10 +14,8 @@ class SearchPage extends HTMLElement {
     }
 
     connectedCallback() {
-        const config = require("./../../config/config");
-        const language = config.language;
-        const placeholder = config.i18n[language].search.placeholder;
-        const query = dom.div(placeholder).contenteditable('true').create();
+        const placeholder = this.safe_i18n("./search/placeholder");
+        const query = this.dom.div(placeholder).contenteditable('true').create();
         query.addEventListener('focus', () => {
             query.textContent = '';
         })
