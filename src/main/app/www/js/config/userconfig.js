@@ -1,3 +1,5 @@
 module.exports = {
-    language :'de'
+    language :'de',
+    darkmode : false,
+    minimizeTraffic : false
 }

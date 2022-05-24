@@ -10,5 +10,8 @@ module.exports = {
     },
     search: {
         placeholder: 'Hier Suchen'
+    },
+    settings: {
+        saveButton: "Einstellungen speichern"
     }
 }

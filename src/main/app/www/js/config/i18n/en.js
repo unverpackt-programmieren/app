@@ -10,5 +10,8 @@ module.exports = {
     },
     search: {
         placeholder: 'Enter Query here'
+    },
+    settings: {
+        saveButton: "save settings"
     }
 }

@@ -11,6 +11,7 @@ module.exports = {
     i18n: i18n,
     language: 'en', //fallback language, for user language go to usersettings.js
     user: require("./userconfig"),
+    defaultpage: "Search",
     db:{
         name: 'my.db',
         location: 'default',

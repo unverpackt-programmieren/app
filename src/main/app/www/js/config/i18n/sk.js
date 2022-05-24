@@ -10,5 +10,8 @@ module.exports = {
     },
     search: {
         placeholder: 'Vyhľadať z database'
+    },
+    settings: {
+        saveButton: "Uložiť zmeny"
     }
 }

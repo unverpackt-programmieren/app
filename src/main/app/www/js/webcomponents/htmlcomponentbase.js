@@ -77,5 +77,56 @@ class HTMLComponentBase extends HTMLElement{
             return prop;
         }
     }
+
+    appendChildren()
+    {
+        var expandedArgs = arguments;
+        var need2expand = true;
+        while(need2expand)
+        {
+            need2expand = false;
+            var temp = [];
+
+            for(var i = 0; i < expandedArgs.length; i++)
+            {
+                if(Array.isArray(expandedArgs[i]))
+                {
+                    need2expand = true;
+
+                    for(var j = 0; j < expandedArgs[i].length; j++)
+                    {
+                        temp.push(expandedArgs[i][j]);
+                    }
+                }
+                else
+                {
+                    temp.push(expandedArgs[i]);
+                }
+            }
+
+            expandedArgs = temp;
+        }
+
+        this.appendChildrenNoExp(expandedArgs);
+    }
+
+    //appendChildrenNoExpand
+    appendChildrenNoExp()
+    {
+        var children = [];
+        if(arguments.length == 1 && Array.isArray(arguments[0]))
+        {
+            children = arguments[0];
+        }
+        else
+        {
+            children = Array.from(arguments);
+        }
+
+        for(var i = 0; i < children.length; i++)
+        {
+            this.appendChild(children[i]);
+        }
+    }
 }
 module.exports = HTMLComponentBase;

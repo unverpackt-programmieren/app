@@ -35,6 +35,7 @@ Kunden-Ansicht
 - Favoritenseite bleibt
 
 - Einstellungen
+	- Sprache
 	- Dark mode
 	- Google connecten
 	- Datensparen (keine Bilder)
