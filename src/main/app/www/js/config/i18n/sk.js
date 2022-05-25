@@ -12,6 +12,9 @@ module.exports = {
         placeholder: 'Vyhľadať z database'
     },
     settings: {
-        saveButton: "Uložiť zmeny"
+        saveButton: "Uložiť zmeny",
+        language_label : "Jazyk",
+        darkmode_label : "Tmavý režim",
+        mintraffic_label : "Šetriť dáta"
     }
 }

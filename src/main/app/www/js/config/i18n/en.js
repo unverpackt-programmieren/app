@@ -12,6 +12,9 @@ module.exports = {
         placeholder: 'Enter Query here'
     },
     settings: {
-        saveButton: "save settings"
+        saveButton: "save settings",
+        language_label : "Language",
+        darkmode_label : "Darkmode",
+        mintraffic_label : "minimize traffic"
     }
 }

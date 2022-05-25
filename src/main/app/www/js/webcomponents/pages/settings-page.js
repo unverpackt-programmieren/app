@@ -21,9 +21,9 @@ class SettingsPage extends HTMLComponentBase {
             this.saveChanges(this);
         });
 
-        this.appendChildren(this.dom.div([this.dom.text("language").create(), this.langDropDown]).create(),
-                            this.dom.div([this.dom.text("darkmode").create(), this.darkMode]).create(),
-                            this.dom.div([this.dom.text("minimize traffic").create(), this.minTraffic]).create(),
+        this.appendChildren(this.dom.div([this.dom.text(this.safe_i18n("./settings/language_label")).create(), this.langDropDown]).create(),
+                            this.dom.div([this.dom.text(this.safe_i18n("./settings/darkmode_label")).create(), this.darkMode]).create(),
+                            this.dom.div([this.dom.text(this.safe_i18n("./settings/mintraffic_label")).create(), this.minTraffic]).create(),
                             saveBtn);
 
         this.loadSettings();

@@ -12,6 +12,9 @@ module.exports = {
         placeholder: 'Hier Suchen'
     },
     settings: {
-        saveButton: "Einstellungen speichern"
+        saveButton: "Einstellungen speichern",
+        language_label : "Sprache",
+        darkmode_label : "Dunkelmodus",
+        mintraffic_label : "Datensparen"
     }
 }
