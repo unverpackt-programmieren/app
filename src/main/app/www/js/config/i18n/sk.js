@@ -16,5 +16,10 @@ module.exports = {
         language_label : "Jazyk",
         darkmode_label : "Tmavý režim",
         mintraffic_label : "Šetriť dáta"
+    },
+    category : {
+        price_label : "Cena",
+        vendorname_label : "Predajca",
+        title_label : "Produkty kategórie "
     }
 }

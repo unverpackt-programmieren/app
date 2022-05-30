@@ -16,5 +16,10 @@ module.exports = {
         language_label : "Language",
         darkmode_label : "Darkmode",
         mintraffic_label : "minimize traffic"
+    },
+    category : {
+        price_label : "Price",
+        vendorname_label : "Vendor name",
+        title_label : "Products of type "
     }
 }

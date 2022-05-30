@@ -7,9 +7,9 @@ class CategoryPage extends HTMLComponentBase {
         const categoryData = await this.db.getCategory(this.args[0]);
         const productsList = await this.db.products.ofCategory(this.args[0]);
 
-        const title = this.dom.h1("Products of type " + String(categoryData.titel)).create();
+        const title = this.dom.h1(this.safe_i18n("./category/title_label") + String(categoryData.titel)).create();
 
-        var products = [];
+        var products = [this.dom.tr([this.dom.td(this.dom.b(this.safe_i18n("./category/price_label")).create()).create(), this.dom.td(this.dom.b(this.safe_i18n("./category/vendorname_label")).create()).create()]).create()];
         for(var i = 0; i < productsList.length; i++)
         {
             const price = (await this.db.getProduct(productsList[i])).preis;

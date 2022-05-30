@@ -16,5 +16,10 @@ module.exports = {
         language_label : "Sprache",
         darkmode_label : "Dunkelmodus",
         mintraffic_label : "Datensparen"
+    },
+    category : {
+        price_label : "Preis",
+        vendorname_label : "Verkäufer",
+        title_label : "Produkte der Kategorie "
     }
 }
