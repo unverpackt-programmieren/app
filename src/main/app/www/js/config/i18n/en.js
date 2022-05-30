@@ -1,7 +1,7 @@
 module.exports = {
     name: 'unverpackt programmieren',
     top: {
-        impressum: 'Fuck You'
+        impressum: 'Impressum'
     },
     bottom: {
         search: 'Search',

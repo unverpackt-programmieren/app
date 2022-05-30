@@ -37,6 +37,16 @@ module.exports = {
             content : require("./../webcomponents/pages/impressum-page"),
             top: DefaultTop,
             bottom: DefaultBottom
+        },
+        Product: {
+            content : require("./../webcomponents/pages/product-page"),
+            top: DefaultTop,
+            bottom: DefaultBottom
+        },
+        Category: {
+            content : require("./../webcomponents/pages/category-page"),
+            top: DefaultTop,
+            bottom: DefaultBottom
         }
     }
 }

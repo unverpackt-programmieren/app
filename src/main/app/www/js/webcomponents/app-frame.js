@@ -33,7 +33,7 @@ class AppFrame extends HTMLComponentBase {
         }
     }
 
-    show(Component) {
+    show(Component, params) {
         if(Component == null)
         {
             Component = this.config.pages[this.config.defaultpage];
@@ -42,7 +42,7 @@ class AppFrame extends HTMLComponentBase {
         this.innerHTML = "";
         this.currentPage = Component;
 
-        this.pageContent = this.dom.div(new Component.content()).class('content').create();
+        this.pageContent = this.dom.div(new Component.content(params)).class('content').create();
         const content = this.dom.div([
             Component.top ? new Component.top() : null,
             this.pageContent,

@@ -30,6 +30,24 @@ class SearchPage extends HTMLComponentBase {
 
         })
 
+        //remove later
+        const dummyProduct = new (require("./../navigation-button"))();
+        dummyProduct.init("dummy", this.config.pages.Product, 1);
+
+        const dummyId = this.dom.input().create();
+        dummyId.addEventListener("change", () => {
+            dummyProduct.init("dummy", this.config.pages.Product, dummyId.value);
+        });
+        this.appendChildren(dummyId, dummyProduct);
+
+        const dummyCategory = new (require("./../navigation-button"))();
+        dummyCategory.init("dummy2", this.config.pages.Category, 1);
+
+        const dummyId2 = this.dom.input().create();
+        dummyId2.addEventListener("change", () => {
+            dummyCategory.init("dummy2", this.config.pages.Category, dummyId2.value);
+        });
+        this.appendChildren(dummyId2, dummyCategory);
     }
 }
 

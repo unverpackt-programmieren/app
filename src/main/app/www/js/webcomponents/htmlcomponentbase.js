@@ -1,4 +1,13 @@
+const superagent = require("superagent");
+
 class HTMLComponentBase extends HTMLElement{
+    
+    constructor(args)
+    {
+        super();
+        this.args = args;
+    }
+    
     get config(){
         return require("./../config/config");
     }
@@ -127,6 +136,88 @@ class HTMLComponentBase extends HTMLElement{
         {
             this.appendChild(children[i]);
         }
+    }
+
+    get db () {
+        return {
+            serverAdress : "http://127.0.0.1:3000",
+            getProduct : (id) => {
+                if(!id)
+                {
+                    id = 1;
+                }
+
+                return new Promise((resolve, reject) => {
+                    superagent.get(this.db.serverAdress + "/products/id/" + String(id)).then((result) => {
+                        resolve(result.body[0]);
+                    }).catch((error) => {
+                        reject(error);
+                    });
+                });
+            },
+            getVendor : (id) => {
+                if(!id)
+                {
+                    id = 1;
+                }
+
+                return new Promise((resolve, reject) => {
+                    superagent.get(this.db.serverAdress + "/vendor/" + String(id)).then((result) => {
+                        resolve(result.body[0]);
+                    }).catch((error) => {
+                        reject(error);
+                    });
+                });
+            },
+            getCategory : (id) => {
+                if(!id)
+                {
+                    id = 1;
+                }
+
+                return new Promise((resolve, reject) => {
+                    superagent.get(this.db.serverAdress + "/category/" + String(id)).then((result) => {
+                        resolve(result.body[0]);
+                    }).catch((error) => {
+                        reject(error);
+                    });
+                });
+            },
+            products : {
+                ofCategory : (categoryId) => {
+                    if(!categoryId)
+                    {
+                        categoryId = 1;
+                    }
+
+                    return new Promise((resolve, reject) => {
+                        superagent.get(this.db.serverAdress + "/products/category/" + String(categoryId)).then((result) => {
+                            resolve(result.body);
+                        }).catch((error) => {
+                            reject(error);
+                        });
+                    });
+                },
+                ofVendor : (providerId) => {
+                    if(!providerId)
+                    {
+                        providerId = 1;
+                    }
+
+                    return new Promise((resolve, reject) => {
+                        superagent.get(this.db.serverAdress + "/products/vendor/" + String(providerId)).then((result) => {
+                            resolve(result.body);
+                        }).catch((error) => {
+                            reject(error);
+                        });
+                    });
+                },
+                withId : (id) => {
+                    console.log("HTMLComponentBase.db.products.withId(id) -> use HTMLComponentBase.db.getProduct(id) instead");
+                    return this.db.getProduct(id);
+                }
+            }
+        };
     }
 }
 module.exports = HTMLComponentBase;
