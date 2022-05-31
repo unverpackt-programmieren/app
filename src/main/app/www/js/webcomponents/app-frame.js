@@ -1,9 +1,14 @@
-const { pages } = require("./../config/config");
-const config = require("./../config/config");
-const dom = require("./../utils/dom");
+const HTMLComponentBase = require("./htmlcomponentbase");
 const sql = require("./../utils/webSQL");
 
-class AppFrame extends HTMLElement {
+class AppFrame extends HTMLComponentBase {
+
+    constructor()
+    {
+        super();
+        this.currentPage = null;
+    }
+
     async prepareDB() {
         const createProfile = await sql("CREATE TABLE IF NOT EXISTS Profile (lastQuery)");
         await sql("INSERT INTO Profile(lastQuery) values(?)",['Huhu diese DB ist alt!']);
@@ -12,14 +17,33 @@ class AppFrame extends HTMLElement {
 
     connectedCallback() {
         this.prepareDB().then(() => {
-            this.show(config.pages.Search);
+            this.show();
         })
     }
 
-    show(Component) {
+    reload()
+    {
+        if(this.currentPage != null)
+        {
+            this.show(this.currentPage);
+        }
+        else
+        {
+            this.show();
+        }
+    }
+
+    show(Component, params) {
+        if(Component == null)
+        {
+            Component = this.config.pages[this.config.defaultpage];
+        }
+
         this.innerHTML = "";
-        this.pageContent = dom.div(new Component.content()).class('content').create();
-        const content = dom.div([
+        this.currentPage = Component;
+
+        this.pageContent = this.dom.div(new Component.content(params)).class('content').create();
+        const content = this.dom.div([
             Component.top ? new Component.top() : null,
             this.pageContent,
             Component.bottom ? new Component.bottom() : null

@@ -1,17 +1,14 @@
 
-const dom = require("./../utils/dom");
+const HTMLComponentBase = require("./htmlcomponentbase");
 const NavigationButton = require("./navigation-button");
 
-class TopBar extends HTMLElement {
+class TopBar extends HTMLComponentBase {
     connectedCallback() {
-        const config = require("./../config/config");
-
-        const language = config.language;
         const impressumButton = new NavigationButton();
-        impressumButton.init(config.i18n[language].bottom.impressum, config.pages.Impressum);
-        const content = dom.div(
+        impressumButton.init(this.safe_i18n("./top/impressum"), this.config.pages.Impressum);
+        const content = this.dom.div(
             [
-                dom.h2(config.i18n[language].name).create(),
+                this.dom.h2(this.safe_i18n("./name")).create(),
                 impressumButton
             ]
         ).create();

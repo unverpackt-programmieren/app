@@ -18,6 +18,11 @@ startServer = async () => {
     });
     app.get("/search/:query", require("./routes/queryProducts"));
     app.get('/kategorien', require("./routes/getKategorien"));
+
+    app.get("/products/*", require("./routes/getProducts"));
+    app.get("/vendor/*", require("./routes/getVendor"));
+    app.get("/category/*", require("./routes/getCategory"));
+
     app.listen(port, () => {
         console.log(`unverpackt-programmieren listening on port ${port}`)
     })

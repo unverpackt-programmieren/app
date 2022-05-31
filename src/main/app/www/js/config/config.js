@@ -9,7 +9,9 @@ const i18n = {
 }
 module.exports = {
     i18n: i18n,
-    language: 'en',
+    language: 'en', //fallback language, for user language go to usersettings.js
+    user: require("./userconfig"),
+    defaultpage: "Search",
     db:{
         name: 'my.db',
         location: 'default',
@@ -33,6 +35,16 @@ module.exports = {
         },
         Impressum: {
             content : require("./../webcomponents/pages/impressum-page"),
+            top: DefaultTop,
+            bottom: DefaultBottom
+        },
+        Product: {
+            content : require("./../webcomponents/pages/product-page"),
+            top: DefaultTop,
+            bottom: DefaultBottom
+        },
+        Category: {
+            content : require("./../webcomponents/pages/category-page"),
             top: DefaultTop,
             bottom: DefaultBottom
         }

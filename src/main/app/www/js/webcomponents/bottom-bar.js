@@ -1,20 +1,16 @@
-//const config = require("./../config/config");
-const dom = require("./../utils/dom");
+const HTMLComponentBase = require("./htmlcomponentbase");
 const NavigationButton = require("./navigation-button");
 
-class BottomBar extends HTMLElement {
+class BottomBar extends HTMLComponentBase {
     connectedCallback() {
-        const config = require("./../config/config");
-
-        const language = config.language;
         const searchButton = new NavigationButton();
-        searchButton.init(config.i18n[language].bottom.search, config.pages.Search);
+        searchButton.init(this.safe_i18n("./bottom/search"), this.config.pages.Search);
         const favouritesButton = new NavigationButton();
-        favouritesButton.init(config.i18n[language].bottom.favourites, config.pages.Favourites);
+        favouritesButton.init(this.safe_i18n("./bottom/favourites"), this.config.pages.Favourites);
         const settingsButton = new NavigationButton();
-        settingsButton.init(config.i18n[language].bottom.settings, config.pages.Settings);
+        settingsButton.init(this.safe_i18n("./bottom/settings"), this.config.pages.Settings);
         
-        const content = dom.div([
+        const content = this.dom.div([
             searchButton, favouritesButton, settingsButton
         ]).create();
         this.appendChild(content);
