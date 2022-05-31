@@ -12,6 +12,8 @@ storage.Kategorie = require("./tables/kategorie")(sequelize);
 storage.Kunde.hasMany(storage.Produkt);
 storage.Produkt.belongsTo(storage.Kunde);
 
+// Kategorie n:n
+
 storage.Kategorie.hasOne(storage.Produkt);
 storage.Produkt.belongsTo(storage.Kategorie);
 
