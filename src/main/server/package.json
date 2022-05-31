@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "fill": "node fillupDB.js"
+    "fill": "node fillupDB.js",
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +17,10 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.19.0",
     "sqlite3": "^5.0.6"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "superagent": "^7.1.3"
   }
 }

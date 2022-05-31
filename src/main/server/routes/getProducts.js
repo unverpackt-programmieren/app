@@ -1,50 +1,45 @@
 const storage = require("./../db/storage");
 module.exports = async (req, res) => {
-    const params = String(req.path).split("/")
-    params.splice(0, 2);
 
-    switch(params[0])
-    {
-        case "id":
-            {
-                const product = await storage.Produkt.findAll({
-                    where: {
-                        id : Number(params[1])
-                    }
-                });
-                res.send(product);
-            } break;
+    const where = {
+        id: {
+            id: Number(req.params.id)
+        },
+        category: {
+            CategoryId: Number(req.params.id)
+        },
+        vendor: {
+            CustomerId: Number(req.params.id)
+        }
+    };
+    where.logos = where.vendor;
 
-        case "category":
-            {
-                const products = await storage.Produkt.findAll({
-                    where: {
-                        CategoryId : Number(params[1])
-                    }
-                });
-
-                res.send(products.map((element) => {
-                    return element.id;
-                }));
-            } break;
-        
-        case "vendor":
-            {
-                const products = await storage.Produkt.findAll({
-                    where: {
-                        CustomerId : Number(params[1])
-                    }
-                });
-
-                res.send(products.map((element) => {
-                    return element.id;
-                }));
-            } break;
-            
-        default:
-            {
-                res.send(404);
-            }
+    const idMapper = arr => {
+        return arr.map(a => a.dataValues.id);
     }
-    
+
+    const mapping = {
+        category: idMapper,
+        vendor: idMapper,
+        logos : arr=>{
+            return arr.map(a=>{
+                return a.dataValues.logo;
+            })
+        }
+    }
+
+    const query = where[req.params.type];
+    if (query === undefined) {
+        res.sendStatus(404);
+    } else {
+        let result = await storage.Produkt.findAll({
+            where: query
+        });
+        const mapper = mapping[req.params.type];
+        if(mapper!==undefined){
+            result = mapper(result);
+        }
+        res.send(result);
+    }
+
 }
