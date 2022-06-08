@@ -16,9 +16,7 @@ class HTMLComponentBase extends HTMLElement{
         return require("./../utils/dom");
     }
 
-    get safe_i18n(){
-        return (langpath) =>
-        {
+    safe_i18n(langpath){
             const errormsg = "LANG ERROR";
             var pathstr = String(langpath);
             var splitpath = pathstr.split("/");
@@ -84,7 +82,6 @@ class HTMLComponentBase extends HTMLElement{
             }
             
             return prop;
-        }
     }
 
     appendChildren()
@@ -141,76 +138,35 @@ class HTMLComponentBase extends HTMLElement{
     get db () {
         return {
             serverAdress : "http://127.0.0.1:3000",
-            getProduct : (id) => {
+            get : (id, path, onlyFirst = false) => {
                 if(!id)
                 {
                     id = 1;
                 }
 
                 return new Promise((resolve, reject) => {
-                    superagent.get(this.db.serverAdress + "/products/id/" + String(id)).then((result) => {
-                        resolve(result.body[0]);
+                    superagent.get(this.db.serverAdress + String(path) + String(id)).then((result) => {
+                        resolve(onlyFirst ? result.body[0] : result.body);
                     }).catch((error) => {
                         reject(error);
                     });
                 });
+            },
+            getProduct : (id) => {
+                return this.db.get(id, "/products/id/", true);
             },
             getVendor : (id) => {
-                if(!id)
-                {
-                    id = 1;
-                }
-
-                return new Promise((resolve, reject) => {
-                    superagent.get(this.db.serverAdress + "/vendor/" + String(id)).then((result) => {
-                        resolve(result.body[0]);
-                    }).catch((error) => {
-                        reject(error);
-                    });
-                });
+                return this.db.get(id, "/vendor/", true);
             },
             getCategory : (id) => {
-                if(!id)
-                {
-                    id = 1;
-                }
-
-                return new Promise((resolve, reject) => {
-                    superagent.get(this.db.serverAdress + "/category/" + String(id)).then((result) => {
-                        resolve(result.body[0]);
-                    }).catch((error) => {
-                        reject(error);
-                    });
-                });
+                return this.db.get(id, "/category/", true);
             },
             products : {
                 ofCategory : (categoryId) => {
-                    if(!categoryId)
-                    {
-                        categoryId = 1;
-                    }
-
-                    return new Promise((resolve, reject) => {
-                        superagent.get(this.db.serverAdress + "/products/category/" + String(categoryId)).then((result) => {
-                            resolve(result.body);
-                        }).catch((error) => {
-                            reject(error);
-                        });
-                    });
+                    return this.db.get(categoryId, "/products/category/");
                 },
                 ofVendor : (providerId) => {
-                    if(!providerId)
-                    {
-                        providerId = 1;
-                    }
-
-                    return new Promise((resolve, reject) => {
-                        superagent.get(this.db.serverAdress + "/products/vendor/" + String(providerId)).then((result) => {
-                            resolve(result.body);
-                        }).catch((error) => {
-                            reject(error);
-                        });
-                    });
+                    return this.db.get(providerId, "/products/vendor/");
                 },
                 withId : (id) => {
                     console.log("HTMLComponentBase.db.products.withId(id) -> use HTMLComponentBase.db.getProduct(id) instead");
