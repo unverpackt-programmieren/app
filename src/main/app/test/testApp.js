@@ -1,4 +1,5 @@
 require("chai").should();
+const kill  = require('tree-kill');
 const puppeteer = require("puppeteer");
 const backend = require('./../../server/server');
 const userconfig = require("./../www/js/config/userconfig")
@@ -9,7 +10,7 @@ let childProcess;
 describe("unverpackt programmieren app", ()=>{
     before((done) => {
         const lastLineOfCordova = "304 /plugins/cordova-sqlite-storage/www/SQLitePlugin.js";
-        childProcess =  require('child_process').spawn('cordova' ,['run','browser']);
+        childProcess =  require('child_process').spawn('cordova' ,['run','browser'], {shell:true});
         childProcess.stdout.on('data', async data => {
             const strData = data.toString();
             if(strData.indexOf(lastLineOfCordova)===0){
@@ -53,7 +54,7 @@ describe("unverpackt programmieren app", ()=>{
     })
 
     after(async () => {
-        childProcess.kill();
+        kill(childProcess.pid);
         server.close();
         browser.close();
     })
