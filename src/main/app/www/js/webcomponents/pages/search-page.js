@@ -14,7 +14,7 @@ class SearchPage extends HTMLComponentBase {
     }
 
     connectedCallback() {
-        const placeholder = this.safe_i18n("./search/placeholder");
+        const placeholder = this.safe_i18n("search.placeholder");
         const query = this.dom.div(placeholder).contenteditable('true').create();
         query.addEventListener('focus', () => {
             query.textContent = '';

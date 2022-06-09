@@ -16,14 +16,14 @@ class SettingsPage extends HTMLComponentBase {
         this.minTraffic = this.dom.input().create();
         this.minTraffic.type = "checkbox";
 
-        const saveBtn = this.dom.button(this.safe_i18n("./settings/saveButton")).create();
+        const saveBtn = this.dom.button(this.safe_i18n("settings.saveButton")).create();
         saveBtn.addEventListener("click", () => {
             this.saveChanges(this);
         });
 
-        this.appendChildren(this.dom.div([this.dom.text(this.safe_i18n("./settings/language_label")).create(), this.langDropDown]).create(),
-                            this.dom.div([this.dom.text(this.safe_i18n("./settings/darkmode_label")).create(), this.darkMode]).create(),
-                            this.dom.div([this.dom.text(this.safe_i18n("./settings/mintraffic_label")).create(), this.minTraffic]).create(),
+        this.appendChildren(this.dom.div([this.dom.text(this.safe_i18n("settings.language_label")).create(), this.langDropDown]).create(),
+                            this.dom.div([this.dom.text(this.safe_i18n("settings.darkmode_label")).create(), this.darkMode]).create(),
+                            this.dom.div([this.dom.text(this.safe_i18n("settings.mintraffic_label")).create(), this.minTraffic]).create(),
                             saveBtn);
 
         this.loadSettings();

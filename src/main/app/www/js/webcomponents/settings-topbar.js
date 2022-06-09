@@ -8,7 +8,7 @@ class SettingsTop extends HTMLComponentBase {
         const content = this.dom.div(
             [
                 backButton,
-                this.dom.text(this.safe_i18n("./bottom/search")).create()
+                this.dom.text(this.safe_i18n("bottom.search")).create()
             ]
         ).create();
         this.appendChild(content);
