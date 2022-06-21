@@ -1,0 +1,7 @@
+const storage = require("./../db/storage");
+module.exports = async (req, res) => {
+    const result=await storage.Produkt.findAll({where:{
+        CategoryId: req.params.categoryId
+    }});
+    res.send(result)
+};

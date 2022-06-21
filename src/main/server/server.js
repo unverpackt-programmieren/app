@@ -24,6 +24,7 @@ startServer = async (givenPort) => {
     app.get('/kategorien', require("./routes/getKategorien"));
 
     app.get("/products/:type/:id", require("./routes/getProducts"));
+    app.get("/products/by/category/:categoryId", require("./routes/getProductsByCategory"));
     app.get("/vendor/:vendorId", require("./routes/getVendor"));
     app.get("/category/:categoryId", require("./routes/getCategory"));
     return app.listen(port, () => {
