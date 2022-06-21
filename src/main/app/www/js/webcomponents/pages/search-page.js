@@ -30,7 +30,6 @@ class SearchPage extends HTMLComponentBase {
 
         })
 
-
         //remove later
         const dummyId = this.dom.input().create();
         const dummyProduct = this.dom.button("product site").create();

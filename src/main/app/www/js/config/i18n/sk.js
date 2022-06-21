@@ -21,5 +21,13 @@ module.exports = {
         price_label : "Cena",
         vendorname_label : "Predajca",
         title_label : "Produkty kategórie "
+    },
+    products : {
+        adress_label : "Adresa",
+        category_label : "Kategória",
+        price_label : "cena"
+    },
+    favourites : {
+        product_label : "Produkt"
     }
 }

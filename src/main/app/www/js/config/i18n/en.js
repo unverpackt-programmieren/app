@@ -21,5 +21,13 @@ module.exports = {
         price_label : "Price",
         vendorname_label : "Vendor name",
         title_label : "Products of type "
+    },
+    products : {
+        adress_label : "Adress",
+        category_label : "Category",
+        price_label : "Price"
+    },
+    favourites : {
+        product_label : "Product"
     }
 }
