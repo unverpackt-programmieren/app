@@ -51,6 +51,17 @@ describe("routen vom server", () => {
         vendorsFromCategory.map(d=>d.dataValues.id).should.eql(rsp.body)
     })
 
+    it("/products/by/category/:categoryId", async ()=>{
+        const productsFromCategory = await storage.Produkt.findAll({
+            where:{
+                CategoryId: 1
+            }
+        })
+
+        let rsp = await superagent.get("http://localhost:3000/products/by/category/1");
+        rsp.body[0].id.should.equal(productsFromCategory[0].id);
+    })
+
     after(async () => {
         server.close();
     })
