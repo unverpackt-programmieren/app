@@ -8,6 +8,7 @@ const storage = {db: sequelize};
 storage.Kunde = require("./tables/kunde")(sequelize);
 storage.Produkt = require("./tables/produkt")(sequelize);
 storage.Kategorie = require("./tables/kategorie")(sequelize);
+storage.Login = require("./tables/login")(sequelize);
 
 storage.Kunde.hasMany(storage.Produkt);
 storage.Produkt.belongsTo(storage.Kunde);

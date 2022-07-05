@@ -1,5 +1,6 @@
 const {faker} = require('@faker-js/faker');
 const storage = require("./db/storage");
+const crypto = require("crypto");
 
 const between = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -15,8 +16,9 @@ const randomTime = (beforeTime) => {
 }
 
 const createCustomer = async hasOptionalFields => {
+    const name = faker.company.companyName();
     const customer = await storage.Kunde.create({
-        name: faker.company.companyName(),
+        name: name,
         ansprechpartner: faker.name.firstName() + ' ' + faker.name.lastName(),
         adresse: faker.address.streetAddress(),
         telefon: faker.phone.phoneNumber(),
@@ -28,6 +30,12 @@ const createCustomer = async hasOptionalFields => {
         beschreibung: hasOptionalFields ? faker.lorem.lines(between(3, 12)) : undefined,
         reservierbar: between(1, 20) % 2 == 0,
         chat: between(1, 20) % 2 == 0,
+    })
+    const password = crypto.createHash('sha1').update('123456').digest('hex');
+    const token = await storage.Login.create({
+        login: name,
+        password:password,
+        customer: customer.dataValues.id
     })
     return customer
 }

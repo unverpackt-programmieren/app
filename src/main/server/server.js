@@ -11,6 +11,7 @@ startServer = async (givenPort) => {
     if(givenPort!==undefined){
         port=givenPort;
     }
+    app.use('/', express.static('html'));
     app.get("/apt", (req, res) => {
         res.sendFile(path.resolve(appDir, 'platforms/android/app/build/outputs/apk/debug/app-debug.apk'));
     })

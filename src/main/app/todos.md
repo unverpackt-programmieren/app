@@ -1,7 +1,14 @@
 - Zurück Knopf bei Produktseite
-- Permanentes Speichern auch in App lösen
-- Klick Events in App testen
+
+
+Mit Janniks besprechen
+- Server SSL verschlüsseln
+- Geheimnis zwischen Client und Server, damit unsere Infos nicht frei im Netz hängen
+
+- Erfassungsseite im Server für die Händler
+- Logindaten serverseitig generieren
+- Loginseite
+- Stammdatenseite
+- Produktseite
 
 - Produkt und Händler favorisieren
-- Erfassungsapp für die Händler
-- 

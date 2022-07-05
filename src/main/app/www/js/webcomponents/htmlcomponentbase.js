@@ -1,10 +1,20 @@
 const superagent = require("superagent");
+const localforage = require("localforage");
 
 class HTMLComponentBase extends HTMLElement {
 
     constructor(args) {
         super();
         this.args = args;
+        this.localforage = localforage;
+        this.localforage.config({
+            driver      : localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+            name        : 'myApp',
+            version     : 1.0,
+            size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
+            storeName   : 'keyvaluepairs', // Should be alphanumeric, with underscores.
+            description : 'some description'
+        });
     }
 
     get config() {
@@ -77,7 +87,7 @@ class HTMLComponentBase extends HTMLElement {
 
     get db() {
         return {
-            serverAdress: "http://127.0.0.1:3000",
+            serverAdress: "http://178.142.248.113:3000",
             get: (id, path, onlyFirst = false) => {
                 if (!id) {
                     id = 1;

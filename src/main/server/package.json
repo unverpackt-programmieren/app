@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "npm run uncompressed && node server.js",
     "fill": "node fillupDB.js",
-    "test": "mocha"
+    "test": "mocha",
+    "uncompressed": "browserify --standalone unverpackt-programmieren client/client.js -o html/client.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^6.3.1",
+    "browserify": "^17.0.0",
     "express": "^4.17.3",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
