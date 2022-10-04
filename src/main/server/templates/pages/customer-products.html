@@ -1,0 +1,11 @@
+<h1>Hier wohl irgendwann Produkte</h1>
+<ul>
+    {% for product in products %}
+    <li>
+        <p>
+            {{product.beschreibung}}
+            <img src="{{product.logo}}"/>
+        </p>
+    </li>
+    {% endfor %}
+</ul>

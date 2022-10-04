@@ -44,11 +44,11 @@ startServer = async (givenPort) => {
         res.sendFile(path.resolve(__dirname,'dist/index.html'))
     })
 
-    app.post('/page/:page', checkCookie, bodyParser.json(),(req,res)=>{
-
-    })
     app.post("/login",checkCookie, bodyParser.json(), login);
     app.get("/customer/data", checkCookie, require("./routes/business/customerData"));
+    app.post("/customer/data", checkCookie, bodyParser.urlencoded({extended:false}),require("./routes/business/postCustomerData"));
+    app.get("/customer/products", checkCookie, require("./routes/business/getCustomerProducts"));
+
     // REST routen (Daten speichern und abfragen für die App)
     app.get("/search/:query", require("./routes/queryProducts"));
     app.get('/kategorien', require("./routes/getKategorien"));

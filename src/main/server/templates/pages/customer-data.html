@@ -1,8 +1,33 @@
-<form>
-    <label for="ansprechpartner">Ansprechpartner</label>
+<form action="/customer/data" enctype="application/x-www-form-urlencoded" method="post">
+    <label for="name" i18n-value="customerData.name.value">Herbert</label>
+    <input type="text" name="name" id="name" value="{{name}}"/>
+    <label for="ansprechpartner" i18n-value="customerData.ansprechpartner">Herbert</label>
     <input type="text" name="ansprechpartner" id="ansprechpartner" value="{{ansprechpartner}}"/>
-    <label for="adresse">Adresse</label>
-    <textarea name="adresse" id="adresse">
+    <label for="adresse" i18n-value="customerData.adresse.value">Adresse</label>
+    <textarea name="adresse" id="adresse" i18n-title="customerData.adresse.title">
         {{adresse}}
     </textarea>
+    <img src="{{logo}}"/>
+    <label for="telefon" i18n-value="customerData.telefon.value">Herbert</label>
+    <input type="text" name="telefon" id="telefon" value="{{telefon}}"/>
+    <label for="mail" i18n-value="customerData.mail.value">Herbert</label>
+    <input type="email" name="mail" id="mail" value="{{mail}}"/>
+    <div class="zeiten">
+        <h3 i18n-value="customerData.oeffnungszeiten.value"></h3>
+        <label for="zeitenBeginn" i18n-value="customerData.beginn.value">Herbert</label>
+        <input type="time" name="oeffnungszeitBeginn" id="zeitenBeginn" value="{{oeffnungszeitBeginn}}"/>
+        <label for="zeitenEnde" i18n-value="customerData.ende.value">Herbert</label>
+        <input type="time" name="oeffnungszeitEnde" id="zeitenEnde" value="{{oeffnungszeitEnde}}"/>
+    </div>
+    <label for="homepage" i18n-value="customerData.homepage.value">Herbert</label>
+    <input type="text" name="homepage" id="homepage" value="{{homepage}}"/>
+    <label for="beschreibung" i18n-value="customerData.adresse.value">Adresse</label>
+    <textarea name="beschreibung" id="beschreibung" i18n-title="customerData.beschreibung.title">
+        {{beschreibung}}
+    </textarea>
+    <label for="reservierbar" i18n-value="customerData.reservierbar.value">Adresse</label>
+    <input type="checkbox" name="reservierbar" id="reservierbar" checked="{{reservierbar}}"/>
+    <label for="chat" i18n-value="customerData.chat.value">Adresse</label>
+    <input type="checkbox" name="chat" id="chat" checked="{{chat}}"/>
+    <input type="submit" value="Absenden">
 </form>
