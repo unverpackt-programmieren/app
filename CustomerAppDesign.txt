@@ -1,0 +1,22 @@
+Overview page:
+- Eingehende Nachrichten bezüglich Kunden
+- Updates der Policies oder ähnliches
+- (Optional) News über änderungen der App
+- neuste Kundenbewertungen auf eigene Produkte
+--- Allgemeine "Hof-Bewertung"
+- anzahl Käufe (ähnlich wie klicks bei videos) und andere statistiken
+
+Customer Settings Page:
+- Basiseinstellungen wie Hofname, Adresse, Telefon, etc.
+- Grafische spielereien für die "Homepage" (BSP: Hintergrundbild, pfp)-> Ein regulärer Benutzer kann über die normale App
+bei jedem Produkt auf die Hersteller-Homepage gehen, was im Grunde eine vom Hersteller gestaltete
+Seite auf der Infos zum Hof, die Liste der Produkte, etc. stehen
+- Einstellungen bezüglich Sichtbarkeit u.ä. (was darf der Benutzer über einen erfahren)
+
+Product Overview Page:
+- Liste von angebotenen Produkten (Sortierbar nach Kategorie, Erstelldatum, Beliebtheit, usw.)
+
+Product Management Page:
+- Einstellungen für jedes Produkt individuel
+- Fester preis / Mit absprache
+- ...
