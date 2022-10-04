@@ -11,4 +11,6 @@ Mit Janniks besprechen
 - Stammdatenseite
 - Produktseite
 
+- Händler Login mit test absichern
+
 - Produkt und Händler favorisieren
